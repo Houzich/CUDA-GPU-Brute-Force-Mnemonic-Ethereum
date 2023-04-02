@@ -80,7 +80,7 @@
 В файле строки хранятся в виде:
 *chicken jewel keen arm artefact disorder gravity claim sick female verb faint, 0x92F96C980AA87A1580961851A0EF93B578EAFFB8,Sun Apr  2 12:51:42 2023*
 
-## Файл BruteForceMnemonicEthereumV00.exe находится в папке exe
+## Файл BruteForceMnemonicEthereumV10.exe находится в папке exe
 
 
 
