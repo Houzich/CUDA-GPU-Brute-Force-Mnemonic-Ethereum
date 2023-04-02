@@ -66,14 +66,14 @@
 
 # Если нашли кошелек
 В консоли появиться надписи:
-> * !!!FOUND!!!
-!!!FOUND!!!
-!!!FOUND!!!
-!!!FOUND!!!
-!!!FOUND: chicken jewel keen arm artefact disorder gravity claim sick female verb faint, 0x92F96C980AA87A1580961851A0EF93B578EAFFB8
-!!!FOUND!!!
-!!!FOUND!!!
-!!!FOUND!!!
+> * !!!FOUND!!!</br>
+!!!FOUND!!!</br>
+!!!FOUND!!!</br>
+!!!FOUND!!!</br>
+!!!FOUND: chicken jewel keen arm artefact disorder gravity claim sick female verb faint, 0x92F96C980AA87A1580961851A0EF93B578EAFFB8</br>
+!!!FOUND!!!</br>
+!!!FOUND!!!</br>
+!!!FOUND!!!</br>
 !!!FOUND!!!*
 
 Соответственно мнемоника и адрес который мы нашли. И информация добавиться в файл Found_Addresses.csv.
