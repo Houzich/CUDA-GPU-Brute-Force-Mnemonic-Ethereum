@@ -202,7 +202,7 @@ int Generate_Mnemonic(void)
 	clearFiles(Save);
 	int err = tools::readAllTables(Data->host.tables, Config.folder_database, "");
 	if (err == -1) {
-		std::cout << "Error get_all_tables!" << std::endl;
+		std::cout << "Error readAllTables!" << std::endl;
 		goto Error;
 	}
 
