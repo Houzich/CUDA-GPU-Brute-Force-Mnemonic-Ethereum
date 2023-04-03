@@ -9,9 +9,9 @@
   */
 
 #pragma once
-  //compute_86, sm_86
+//compute_86,sm_86
 
-#define NUM_CHILDS					(5)
+#define NUM_CHILDS					(20)
 #define NUM_ALL_CHILDS				(NUM_CHILDS*2)
 
 
