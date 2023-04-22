@@ -2882,6 +2882,7 @@ int find_hash_in_table(const uint32_t* hash, const tableStruct table, const uint
 				found = 1;
 				for (int i = 0; i < 5; i++) ret->hash160[i] = hash[i];
 				for (int i = 0; i < SIZE32_MNEMONIC_FRAME; i++) ret->mnemonic[i] = mnemonic[i];
+				ret->flag_found = 1;
 			}
 			//printf("exit cmp = %d\n", cmp);
 			break;
@@ -2907,7 +2908,7 @@ int find_hash_in_table(const uint32_t* hash, const tableStruct table, const uint
 
 				if (ret->flag_found_bytes == 0)
 				{
-					ret->flag_found_bytes = found;
+					ret->flag_found_bytes = 2;
 					for (int i = 0; i < 5; i++)
 					{
 						ret->hash160_bytes_from_table[i] = hash_from_table[i];
