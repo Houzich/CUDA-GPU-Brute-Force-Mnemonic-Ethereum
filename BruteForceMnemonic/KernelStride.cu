@@ -1,8 +1,8 @@
 ﻿/**
   ******************************************************************************
   * @author		Anton Houzich
-  * @version	V1.0.0
-  * @date		2-April-2023
+  * @version	V2.0.0
+  * @date		29-April-2023
   * @mail		houzich_anton@mail.ru
   * discussion  https://t.me/BRUTE_FORCE_CRYPTO_WALLET
   ******************************************************************************
@@ -24,7 +24,7 @@ int KernelStrideClass::bruteforce_mnemonic(uint64_t grid, uint64_t block) {
 }
 
 int KernelStrideClass::bruteforce_mnemonic_for_save(uint64_t grid, uint64_t block) {
-	gl_bruteforce_mnemonic_for_save << <(uint32_t)grid, (uint32_t)block, 0, dt->stream1 >> > (dt->dev.entropy, dt->dev.dev_tables, dt->dev.ret, dt->dev.save);
+	gl_bruteforce_mnemonic_for_save << <(uint32_t)grid, (uint32_t)block, 0, dt->stream1 >> > (dt->dev.entropy, dt->dev.dev_tables, dt->dev.ret, dt->dev.hash160, dt->dev.save);
 	return 0;
 }
 

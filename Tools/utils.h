@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
   * @author		Anton Houzich
-  * @version	V1.0.0
-  * @date		2-April-2023
+  * @version	V2.0.0
+  * @date		29-April-2023
   * @mail		houzich_anton@mail.ru
   * discussion  https://t.me/BRUTE_FORCE_CRYPTO_WALLET
   ******************************************************************************
@@ -13,10 +13,10 @@
 
 namespace tools {
 	void start_time(void);
-	void stop_time_and_calc(float* delay);
+	void stop_time_and_calc_sec(float* delay);
 	std::string formatWithCommas(double val);
 	std::string formatWithCommas(uint64_t value);
-	void reverseHashUint32(uint32_t* hash_in, uint32_t* hash_out);
+	std::string formatPrefix(double val);
 	std::vector<uint8_t> hexStringToVector(const std::string& source);
 	std::string byteToHexString(uint8_t data);
 	std::string bytesToHexString(const uint8_t* data, int len);

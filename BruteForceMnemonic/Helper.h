@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
   * @author		Anton Houzich
-  * @version	V1.0.0
-  * @date		2-April-2023
+  * @version	V2.0.0
+  * @date		29-April-2023
   * @mail		houzich_anton@mail.ru
   * discussion  https://t.me/BRUTE_FORCE_CRYPTO_WALLET
   ******************************************************************************
@@ -99,7 +99,7 @@ public:
 
 	uint64_t* entropy = NULL;
 	uint8_t* save = NULL;
-
+	uint32_t* hash160 = NULL;
 	retStruct* ret = NULL;
 
 	uint64_t memory_size = 0;
@@ -116,11 +116,12 @@ public:
 		//std::cout << "MALLOC GPU MEMORY SIZE (" << buff_name << "): " << std::to_string((float)size / (1024.0f * 1024.0f)) << " MB\n";
 		return 0;
 	}
-	int malloc(size_t size_entropy_buf, size_t size_save_buf)
+	int malloc(size_t size_entropy_buf, size_t size_save_buf, size_t size_hash160_buf)
 	{
 		memory_size = 0;	
 		if (cudaMallocDevice((uint8_t**)&entropy, size_entropy_buf, &memory_size, "entropy") != 0) return -1;
 		if (cudaMallocDevice((uint8_t**)&save, size_save_buf, &memory_size, "save") != 0) return -1;
+		if (cudaMallocDevice((uint8_t**)&hash160, size_hash160_buf, &memory_size, "hash160") != 0) return -1;
 		if (cudaMallocDevice((uint8_t**)&dev_tables, sizeof(tableStruct) * 256, &memory_size, "dev_tables") != 0) return -1;
 		if (cudaMallocDevice((uint8_t**)&ret, sizeof(retStruct), &memory_size, "ret") != 0) return -1;
 
@@ -154,7 +155,11 @@ public:
 	host_buffers_class host;
 
 	cudaStream_t stream1 = NULL;
+	size_t num_paths = 0;
+	size_t num_childs = 0;
+	size_t num_all_childs = 0;
 	size_t size_entropy_buf = 0;
+	size_t size_hash160_buf = 0;
 	size_t size_save_buf = 0;
 	size_t wallets_in_round_gpu = 0;
 public:
@@ -163,22 +168,30 @@ public:
 
 	}
 
-	int malloc(size_t cuda_grid, size_t cuda_block, bool alloc_buff_for_save)
+	int malloc(size_t cuda_grid, size_t cuda_block, size_t num_paths, size_t num_childs, bool alloc_buff_for_save)
 	{
+		this->num_paths = num_paths;
+		this->num_childs = num_childs;
+		this->num_all_childs = num_paths * num_childs;
+
 		size_t num_wallet = cuda_grid * cuda_block;
 		size_t size_entropy_buf = SIZE_ENTROPY_FRAME;
-		size_t size_save_buf = SIZE_SAVE_FRAME * num_wallet;
+		size_t size_save_frame = (SIZE_MNEMONIC_FRAME + 2 * this->num_all_childs + SIZE_HASH160_FRAME * 2 * this->num_all_childs + 1 * this->num_all_childs);
+		size_t size_save_buf = size_save_frame * num_wallet;
+		size_t size_hash160_buf = 20 * num_wallet * this->num_all_childs;
 		if (!alloc_buff_for_save)
 		{
 			size_save_buf = 0;
+			size_hash160_buf = 0;
 		}
 
 
 		if (cudaStreamCreate(&stream1) != cudaSuccess) { fprintf(stderr, "cudaStreamCreate failed!  stream1"); return -1; }
-		if (dev.malloc(size_entropy_buf, size_save_buf) != 0) return -1;
+		if (dev.malloc(size_entropy_buf, size_save_buf, size_hash160_buf) != 0) return -1;
 		if (host.malloc(size_entropy_buf, size_save_buf) != 0) return -1;
 		this->size_entropy_buf = size_entropy_buf;
 		this->size_save_buf = size_save_buf;
+		this->size_hash160_buf = size_hash160_buf;
 		this->wallets_in_round_gpu = num_wallet;
 		return 0;
 	}
