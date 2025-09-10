@@ -1,10 +1,10 @@
-п»ї/**
+/**
   ******************************************************************************
   * @author		Anton Houzich
   * @version	V2.0.0
   * @date		29-April-2023
   * @mail		houzich_anton@mail.ru
-  * discussion  https://t.me/BRUTE_FORCE_CRYPTO_WALLET
+  * discussion  https://t.me/brute_force_gpu
   ******************************************************************************
   */
 #include <stdafx.h>
@@ -2924,7 +2924,7 @@ void entropy_to_mnemonic(const uint64_t* gl_entropy, uint8_t* mnemonic_phrase) {
 		mnemonic_index++;
 	}
 
-	mnemonic_phrase[mnemonic_index - 1] = 0;	//РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ, СѓР±РёСЂР°РµС‚ РїРѕСЃР»РµРґРЅРёР№ РїСЂРѕР±РµР»
+	mnemonic_phrase[mnemonic_index - 1] = 0;	//обязательно, убирает последний пробел
 
 }
 __device__ void int_to_mnemonic(const uint64_t mnemonic_hi, const uint64_t mnemonic_lo, uint8_t* mnemonic_phrase) {
@@ -2982,7 +2982,7 @@ __device__ void int_to_mnemonic(const uint64_t mnemonic_hi, const uint64_t mnemo
 		mnemonic_index++;
 	}
 
-	mnemonic_phrase[mnemonic_index - 1] = 0;	//РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ, СѓР±РёСЂР°РµС‚ РїРѕСЃР»РµРґРЅРёР№ РїСЂРѕР±РµР»
+	mnemonic_phrase[mnemonic_index - 1] = 0;	//обязательно, убирает последний пробел
 
 }
 
@@ -3442,6 +3442,7 @@ __global__ void gl_bruteforce_mnemonic_for_save(
 	}
 	*(save - 1) = '\n';
 }
+
 
 
 
