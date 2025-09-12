@@ -129,3 +129,4 @@ int KernelStrideClass::end_for_save()
 
 	return 0;
 }
+
